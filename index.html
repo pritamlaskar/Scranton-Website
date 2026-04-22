@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scranton Research — Where builders connect before traction.</title>
+  <meta name="description" content="Scranton Research is a community for early-stage builders — developers, indie hackers, students, and founders — to connect, collaborate, and grow before traction.">
+  <meta property="og:title" content="Scranton Research — Where builders connect before traction.">
+  <meta property="og:description" content="The discovery layer for early-stage builders. Connect before you have traction.">
+  <meta property="og:url" content="https://scrantonresearch.com">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── Reset ──────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ─── Tokens ─────────────────────────────────── */
+    :root {
+      --lime:       #39ff14;
+      --lime-dim:   #2ee010;
+      --black:      #000000;
+      --white:      #ffffff;
+      --gray:       #888888;
+      --gray-lt:    #aaaaaa;
+      --border:     rgba(255,255,255,0.08);
+      --max:        1100px;
+    }
+
+    /* ─── Base ───────────────────────────────────── */
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Questrial', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    h1, h2, h3 {
+      font-family: 'Questrial', sans-serif;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── Layout ─────────────────────────────────── */
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+    .section { padding: 120px 0; border-bottom: 1px solid var(--border); }
+
+    /* ─── Eyebrow label ──────────────────────────── */
+    .eyebrow {
+      display: block;
+      font-size: 11px;
+      color: var(--lime);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    /* ─── Lime accent bar ────────────────────────── */
+    .lime-bar {
+      display: block;
+      width: 28px;
+      height: 2px;
+      background: var(--lime);
+      margin-bottom: 28px;
+    }
+
+    /* ─── Buttons ────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 26px;
+      border-radius: 3px;
+      font-family: 'Questrial', sans-serif;
+      font-size: 15px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      text-decoration: none;
+    }
+    .btn-lime {
+      background: var(--lime);
+      color: var(--black);
+      border-color: var(--lime);
+    }
+    .btn-lime:hover { background: var(--lime-dim); border-color: var(--lime-dim); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border-color: rgba(255,255,255,0.18);
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.45); }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 40px;
+    }
+
+    /* ─── Logo SVG ───────────────────────────────── */
+    .logo-mark {
+      display: inline-block;
+      border-radius: 4px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .logo-mark svg { display: block; }
+
+    /* ─────────────────────────────────────────────
+       NAV
+    ───────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      height: 60px;
+      background: rgba(0,0,0,0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-wordmark {
+      font-size: 15px;
+      color: var(--white);
+      letter-spacing: 0.01em;
+    }
+    .nav-wordmark span { color: var(--lime); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      color: var(--gray-lt);
+      text-decoration: none;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-join {
+      background: var(--lime);
+      color: var(--black) !important;
+      padding: 7px 16px;
+      border-radius: 3px;
+      font-size: 13px !important;
+    }
+    .nav-join:hover { background: var(--lime-dim); }
+
+    /* ─────────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────────── */
+    #hero {
+      padding: 178px 0 140px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    /* subtle grid */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(57,255,20,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(57,255,20,0.025) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+    }
+    /* radial glow behind headline */
+    #hero::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -10%;
+      transform: translateY(-50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(ellipse, rgba(57,255,20,0.055) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--lime);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--lime);
+    }
+    .hero-h1 {
+      font-size: clamp(52px, 8.5vw, 96px);
+      max-width: 880px;
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-h1 .lime { color: var(--lime); }
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--gray-lt);
+      max-width: 500px;
+      line-height: 1.75;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─────────────────────────────────────────────
+       REFRAME — "We research builders"
+    ───────────────────────────────────────────── */
+    #reframe { padding: 120px 0; border-bottom: 1px solid var(--border); }
+    .reframe-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .reframe-quote {
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.25;
+    }
+    .reframe-quote .struck {
+      color: var(--gray);
+      text-decoration: line-through;
+      text-decoration-color: #333;
+    }
+    .reframe-quote .lime { color: var(--lime); }
+    .reframe-body { font-size: 17px; color: var(--gray-lt); line-height: 1.8; }
+    .reframe-body p + p { margin-top: 18px; }
+
+    /* ─────────────────────────────────────────────
+       PROBLEM
+    ───────────────────────────────────────────── */
+    #problem { padding: 120px 0; border-bottom: 1px solid var(--border); }
+    .section-h2 { font-size: clamp(34px, 5vw, 54px); margin-bottom: 16px; }
+    .section-sub {
+      font-size: 18px;
+      color: var(--gray-lt);
+      max-width: 540px;
+      line-height: 1.75;
+      margin-bottom: 64px;
+    }
+    .prob-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .prob-card {
+      background: #000;
+      padding: 44px 32px;
+    }
+    .prob-num {
+      display: block;
+      font-size: 11px;
+      color: var(--gray);
+      letter-spacing: 0.12em;
+      margin-bottom: 24px;
+    }
+    .prob-card h3 { font-size: 20px; margin-bottom: 12px; }
+    .prob-card p { font-size: 15px; color: var(--gray); line-height: 1.7; }
+
+    /* ─────────────────────────────────────────────
+       SOLUTION
+    ───────────────────────────────────────────── */
+    #solution { padding: 120px 0; border-bottom: 1px solid var(--border); }
+    .sol-headline {
+      font-size: clamp(38px, 6vw, 68px);
+      max-width: 720px;
+      margin-bottom: 64px;
+    }
+    .sol-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+    .sol-item {
+      border: 1px solid var(--border);
+      padding: 32px;
+      border-radius: 2px;
+      position: relative;
+    }
+    .sol-item::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 28px; height: 2px;
+      background: var(--lime);
+    }
+    .sol-item h3 { font-size: 18px; margin-bottom: 10px; }
+    .sol-item p { font-size: 15px; color: var(--gray); line-height: 1.7; }
+
+    /* ─────────────────────────────────────────────
+       INSIDE — Behaviors
+    ───────────────────────────────────────────── */
+    #inside { padding: 120px 0; border-bottom: 1px solid var(--border); }
+    .inside-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      border: 1px solid var(--border);
+      margin-top: 56px;
+    }
+    .inside-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 32px 36px;
+      border-bottom: 1px solid var(--border);
+    }
+    .inside-item:nth-child(odd) { border-right: 1px solid var(--border); }
+    .inside-item:nth-last-child(-n+2) { border-bottom: none; }
+    .dot {
+      width: 6px; height: 6px;
+      min-width: 6px;
+      border-radius: 50%;
+      background: var(--lime);
+      margin-top: 9px;
+    }
+    .inside-item p { font-size: 16px; color: var(--gray-lt); line-height: 1.65; }
+    .inside-item strong { color: var(--white); font-weight: 400; }
+
+    /* ─────────────────────────────────────────────
+       NOT THIS
+    ───────────────────────────────────────────── */
+    #not-this { padding: 120px 0; border-bottom: 1px solid var(--border); }
+    .not-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      margin-top: 56px;
+    }
+    .list-label {
+      display: block;
+      font-size: 11px;
+      color: var(--gray);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .not-list, .yes-list { list-style: none; }
+    .not-list li, .yes-list li {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 16px;
+    }
+    .not-list li { color: var(--gray); }
+    .not-list li::before { content: '×'; color: #3a3a3a; font-size: 18px; }
+    .yes-list li { color: var(--white); }
+    .yes-list li::before { content: '→'; color: var(--lime); font-size: 15px; }
+
+    /* ─────────────────────────────────────────────
+       WHO
+    ───────────────────────────────────────────── */
+    #who { padding: 120px 0; border-bottom: 1px solid var(--border); }
+    .who-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 56px;
+    }
+    .who-card { background: #000; padding: 40px 28px; }
+    .who-card h3 { font-size: 20px; margin-bottom: 12px; }
+    .who-card p { font-size: 14px; color: var(--gray); line-height: 1.7; }
+
+    /* ─────────────────────────────────────────────
+       VISION
+    ───────────────────────────────────────────── */
+    #vision { padding: 120px 0; border-bottom: 1px solid var(--border); }
+    .vision-quote {
+      font-size: clamp(28px, 4.5vw, 50px);
+      line-height: 1.3;
+      max-width: 800px;
+      border-left: 2px solid var(--lime);
+      padding-left: 36px;
+      margin-bottom: 72px;
+    }
+    .vision-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .vision-pillar { padding-top: 28px; border-top: 1px solid var(--border); }
+    .pillar-tag {
+      display: block;
+      font-size: 11px;
+      color: var(--lime);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .vision-pillar h3 { font-size: 19px; margin-bottom: 8px; }
+    .vision-pillar p { font-size: 14px; color: var(--gray); line-height: 1.7; }
+
+    /* ─────────────────────────────────────────────
+       CTA
+    ───────────────────────────────────────────── */
+    #cta {
+      padding: 152px 0;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    #cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(57,255,20,0.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .cta-h2 { font-size: clamp(40px, 7vw, 76px); margin-bottom: 20px; }
+    .cta-sub {
+      font-size: 18px;
+      color: var(--gray-lt);
+      max-width: 460px;
+      margin: 0 auto 48px;
+      line-height: 1.75;
+    }
+    .cta-divider {
+      width: 1px; height: 40px;
+      background: var(--border);
+      margin: 56px auto 0;
+    }
+    .email-label {
+      display: block;
+      font-size: 13px;
+      color: var(--gray);
+      margin: 18px 0 16px;
+    }
+    .email-form {
+      display: flex;
+      max-width: 400px;
+      margin: 0 auto;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .email-form input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 13px 18px;
+      font-family: 'Questrial', sans-serif;
+      font-size: 15px;
+      color: var(--white);
+    }
+    .email-form input::placeholder { color: var(--gray); }
+    .email-form button {
+      background: var(--lime);
+      border: none;
+      padding: 13px 22px;
+      font-family: 'Questrial', sans-serif;
+      font-size: 14px;
+      color: var(--black);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .email-form button:hover { background: var(--lime-dim); }
+    .email-note { font-size: 12px; color: var(--gray); margin-top: 10px; }
+
+    /* ─────────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────────── */
+    footer { padding: 44px 0; }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .footer-wordmark { font-size: 14px; color: var(--gray); }
+    .footer-wordmark span { color: var(--lime); }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--gray); text-decoration: none; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy {
+      width: 100%;
+      font-size: 12px;
+      color: #383838;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ─────────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .reframe-grid { grid-template-columns: 1fr; gap: 40px; }
+      .prob-grid { grid-template-columns: 1fr; }
+      .sol-grid { grid-template-columns: 1fr; }
+      .not-grid { grid-template-columns: 1fr; gap: 44px; }
+      .who-grid { grid-template-columns: repeat(2, 1fr); }
+      .vision-pillars { grid-template-columns: 1fr; }
+      .inside-list { grid-template-columns: 1fr; }
+      .inside-item:nth-child(odd) { border-right: none; }
+      .inside-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+      .inside-item:last-child { border-bottom: none; }
+    }
+    @media (max-width: 600px) {
+      .section { padding: 80px 0; }
+      #hero { padding: 130px 0 80px; }
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .who-grid { grid-template-columns: 1fr; }
+      .email-form { flex-direction: column; }
+      .email-form button { padding: 13px; }
+      .btn-row { flex-direction: column; }
+      .btn-row .btn { justify-content: center; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       NAV
+  ═══════════════════════════════════════════ -->
+  <nav>
+    <a href="#" class="nav-brand">
+      <!-- Logo mark: starburst on lime square -->
+      <span class="logo-mark">
+        <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect width="100" height="100" fill="#39ff14"/>
+          <!-- Long rays: 4 cardinal + 4 diagonal -->
+          <line x1="58" y1="50" x2="91" y2="50" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+          <line x1="42" y1="50" x2="9"  y2="50" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+          <line x1="50" y1="58" x2="50" y2="91" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+          <line x1="50" y1="42" x2="50" y2="9"  stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+          <line x1="55.7" y1="55.7" x2="77.7" y2="77.7" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+          <line x1="44.3" y1="44.3" x2="22.3" y2="22.3" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+          <line x1="44.3" y1="55.7" x2="22.3" y2="77.7" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+          <line x1="55.7" y1="44.3" x2="77.7" y2="22.3" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+          <!-- Short rays: 8 intermediate -->
+          <line x1="57.4" y1="53.1" x2="74.6" y2="60.2" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+          <line x1="53.1" y1="57.4" x2="60.2" y2="74.6" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+          <line x1="46.9" y1="57.4" x2="39.8" y2="74.6" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+          <line x1="42.6" y1="53.1" x2="25.4" y2="60.2" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+          <line x1="42.6" y1="46.9" x2="25.4" y2="39.8" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+          <line x1="46.9" y1="42.6" x2="39.8" y2="25.4" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+          <line x1="53.1" y1="42.6" x2="60.2" y2="25.4" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+          <line x1="57.4" y1="46.9" x2="74.6" y2="39.8" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+          <!-- Center blob -->
+          <circle cx="50" cy="50" r="8" fill="#000"/>
+        </svg>
+      </span>
+      <span class="nav-wordmark">Scranton<span>Research</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#problem">Problem</a></li>
+      <li><a href="#who">Who</a></li>
+      <li><a href="#vision">Vision</a></li>
+      <li><a href="#cta" class="nav-join">Join →</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════ -->
+  <section id="hero">
+    <div class="wrap">
+      <div class="hero-tag">Early-stage &nbsp;·&nbsp; Builder-first &nbsp;·&nbsp; Signal over noise</div>
+      <h1 class="hero-h1">
+        Where builders connect<br>
+        <span class="lime">before traction.</span>
+      </h1>
+      <p class="hero-sub">
+        Scranton Research is a community for early-stage builders to connect, collaborate, and grow — before anyone else notices they exist.
+      </p>
+      <div class="btn-row">
+        <a href="https://x.com/scrantonresearch" class="btn btn-lime" target="_blank" rel="noopener">
+          Join on X &nbsp;→
+        </a>
+        <a href="https://reddit.com/r/scrantonresearch" class="btn btn-ghost" target="_blank" rel="noopener">
+          Join on Reddit
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       REFRAME — the name is intentional
+  ═══════════════════════════════════════════ -->
+  <section id="reframe">
+    <div class="wrap">
+      <div class="reframe-grid">
+        <div>
+          <span class="lime-bar"></span>
+          <p class="reframe-quote">
+            We don't research <span class="struck">markets.</span>
+            <br><br>
+            We research <span class="lime">builders.</span>
+          </p>
+        </div>
+        <div class="reframe-body">
+          <p>
+            The name is intentional. Research — in our world — means signal. Discovery. Early insight.
+          </p>
+          <p>
+            We surface builders at zero. Before the product launch, before the press release, before the traction. We find the people doing the actual work.
+          </p>
+          <p>
+            That's the discovery layer. That's Scranton Research.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       PROBLEM
+  ═══════════════════════════════════════════ -->
+  <section id="problem" class="section">
+    <div class="wrap">
+      <span class="eyebrow">The Problem</span>
+      <h2 class="section-h2">Building is easy now.<br>Building alone isn't.</h2>
+      <p class="section-sub">
+        AI lowered the floor. Anyone can ship. But most early builders still hit the same three walls.
+      </p>
+      <div class="prob-grid">
+        <div class="prob-card">
+          <span class="prob-num">01</span>
+          <h3>No network</h3>
+          <p>
+            You're building in isolation. You don't know who else is working on the same problems — or who could help you move faster.
+          </p>
+        </div>
+        <div class="prob-card">
+          <span class="prob-num">02</span>
+          <h3>No feedback</h3>
+          <p>
+            Shipping into the void. Zero users means zero signal. You can't validate what no one has seen.
+          </p>
+        </div>
+        <div class="prob-card">
+          <span class="prob-num">03</span>
+          <h3>No collaborators</h3>
+          <p>
+            Finding your co-founder, first designer, or first user at zero is nearly impossible through normal channels.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       SOLUTION
+  ═══════════════════════════════════════════ -->
+  <section id="solution" class="section">
+    <div class="wrap">
+      <span class="eyebrow">The Solution</span>
+      <h2 class="sol-headline">
+        A place to connect<br>before everything else.
+      </h2>
+      <div class="sol-grid">
+        <div class="sol-item">
+          <h3>Meet other builders</h3>
+          <p>Find people working on ideas at the same stage. No gatekeeping. No traction requirements. Just people who get it.</p>
+        </div>
+        <div class="sol-item">
+          <h3>Find collaborators</h3>
+          <p>Connect with developers, designers, and early founders who are actively looking to build with someone.</p>
+        </div>
+        <div class="sol-item">
+          <h3>Test your ideas</h3>
+          <p>Share what you're working on with people who understand 0→1. Get real feedback — not just likes.</p>
+        </div>
+        <div class="sol-item">
+          <h3>Validate your positioning</h3>
+          <p>Figure out who your product is for before you build everything. Talk to builders who understand the problem space.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       INSIDE — Behaviors, not features
+  ═══════════════════════════════════════════ -->
+  <section id="inside" class="section">
+    <div class="wrap">
+      <span class="eyebrow">What Happens Inside</span>
+      <h2 class="section-h2">Real builders.<br>Real conversations.</h2>
+      <div class="inside-list">
+        <div class="inside-item">
+          <span class="dot"></span>
+          <p><strong>Builders share half-finished ideas</strong> and get honest input before writing a single line of code.</p>
+        </div>
+        <div class="inside-item">
+          <span class="dot"></span>
+          <p><strong>Developers find co-founders</strong> who match their pace, depth, and risk appetite.</p>
+        </div>
+        <div class="inside-item">
+          <span class="dot"></span>
+          <p><strong>Indie hackers post their first numbers</strong> — even when that number is one.</p>
+        </div>
+        <div class="inside-item">
+          <span class="dot"></span>
+          <p><strong>Students ask the dumb questions</strong> that turn out to be the most important ones in the room.</p>
+        </div>
+        <div class="inside-item">
+          <span class="dot"></span>
+          <p><strong>Early founders test names, copy, and positioning</strong> with people who actually care about the craft.</p>
+        </div>
+        <div class="inside-item">
+          <span class="dot"></span>
+          <p><strong>Everyone shows up before they're ready</strong> — because that's the point.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       NOT THIS
+  ═══════════════════════════════════════════ -->
+  <section id="not-this" class="section">
+    <div class="wrap">
+      <span class="eyebrow">What We Are Not</span>
+      <h2 class="section-h2">This isn't a showcase.<br>It's a signal.</h2>
+      <div class="not-grid">
+        <div>
+          <span class="list-label">Not this</span>
+          <ul class="not-list">
+            <li>TechCrunch-style startup news</li>
+            <li>Product Hunt popularity contest</li>
+            <li>Polished founder branding</li>
+            <li>VC-funded startup theater</li>
+            <li>Growth hacks and viral playbooks</li>
+          </ul>
+        </div>
+        <div>
+          <span class="list-label">This</span>
+          <ul class="yes-list">
+            <li>Raw ideas over press releases</li>
+            <li>Signal over noise</li>
+            <li>0 users welcome</li>
+            <li>Builder-first, always</li>
+            <li>Authentic before polished</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       WHO IT'S FOR
+  ═══════════════════════════════════════════ -->
+  <section id="who" class="section">
+    <div class="wrap">
+      <span class="eyebrow">Who It's For</span>
+      <h2 class="section-h2">If you're building,<br>you belong here.</h2>
+      <div class="who-grid">
+        <div class="who-card">
+          <h3>Developers</h3>
+          <p>You ship code. You want to build something real. You need an idea, a partner, or just someone who speaks the language.</p>
+        </div>
+        <div class="who-card">
+          <h3>Indie Hackers</h3>
+          <p>Solo builders chasing ramen profitability. You iterate fast and value freedom over funding rounds.</p>
+        </div>
+        <div class="who-card">
+          <h3>Students</h3>
+          <p>In school or just out of it. You're building because you can't not build. You want people who get that.</p>
+        </div>
+        <div class="who-card">
+          <h3>Early Founders</h3>
+          <p>Pre-revenue, pre-team, maybe pre-idea. You're in the discovery phase. You're in exactly the right place.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       VISION
+  ═══════════════════════════════════════════ -->
+  <section id="vision" class="section">
+    <div class="wrap">
+      <span class="eyebrow">The Vision</span>
+      <blockquote class="vision-quote">
+        "We connect the next generation of builders — before anyone else notices they exist."
+      </blockquote>
+      <div class="vision-pillars">
+        <div class="vision-pillar">
+          <span class="pillar-tag">Layer 01</span>
+          <h3>Builder Network</h3>
+          <p>A persistent network of early-stage builders. The connective tissue between people who ship.</p>
+        </div>
+        <div class="vision-pillar">
+          <span class="pillar-tag">Layer 02</span>
+          <h3>Collaboration Layer</h3>
+          <p>Context and tools to help builders find each other, form teams, and move faster together.</p>
+        </div>
+        <div class="vision-pillar">
+          <span class="pillar-tag">Layer 03</span>
+          <h3>Discovery Engine</h3>
+          <p>Surface the best early-stage ideas and builders before they hit the mainstream feed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       CTA — strong close
+  ═══════════════════════════════════════════ -->
+  <section id="cta">
+    <div class="wrap">
+      <h2 class="cta-h2">Start before<br>you're ready.</h2>
+      <p class="cta-sub">
+        The community is live. The builders are in. The only thing missing is you.
+      </p>
+      <div class="btn-row" style="justify-content:center;">
+        <a href="https://x.com/scrantonresearch" class="btn btn-lime" target="_blank" rel="noopener">
+          Join the community on X &nbsp;→
+        </a>
+        <a href="https://reddit.com/r/scrantonresearch" class="btn btn-ghost" target="_blank" rel="noopener">
+          Join on Reddit
+        </a>
+      </div>
+
+      <!-- Email capture -->
+      <div class="cta-divider"></div>
+      <span class="email-label">Get updates when we launch new features.</span>
+      <form class="email-form" onsubmit="submitEmail(event)">
+        <input type="email" placeholder="you@example.com" required autocomplete="email">
+        <button type="submit">Notify me</button>
+      </form>
+      <p class="email-note">No spam. Unsubscribe anytime.</p>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-inner">
+        <a href="#" class="footer-brand">
+          <span class="logo-mark">
+            <svg width="22" height="22" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100" height="100" fill="#39ff14"/>
+              <line x1="58" y1="50" x2="91" y2="50" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+              <line x1="42" y1="50" x2="9"  y2="50" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+              <line x1="50" y1="58" x2="50" y2="91" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+              <line x1="50" y1="42" x2="50" y2="9"  stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+              <line x1="55.7" y1="55.7" x2="77.7" y2="77.7" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+              <line x1="44.3" y1="44.3" x2="22.3" y2="22.3" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+              <line x1="44.3" y1="55.7" x2="22.3" y2="77.7" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+              <line x1="55.7" y1="44.3" x2="77.7" y2="22.3" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+              <line x1="57.4" y1="53.1" x2="74.6" y2="60.2" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+              <line x1="53.1" y1="57.4" x2="60.2" y2="74.6" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+              <line x1="46.9" y1="57.4" x2="39.8" y2="74.6" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+              <line x1="42.6" y1="53.1" x2="25.4" y2="60.2" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+              <line x1="42.6" y1="46.9" x2="25.4" y2="39.8" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+              <line x1="46.9" y1="42.6" x2="39.8" y2="25.4" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+              <line x1="53.1" y1="42.6" x2="60.2" y2="25.4" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+              <line x1="57.4" y1="46.9" x2="74.6" y2="39.8" stroke="#000" stroke-width="5.5" stroke-linecap="round"/>
+              <circle cx="50" cy="50" r="8" fill="#000"/>
+            </svg>
+          </span>
+          <span class="footer-wordmark">Scranton<span>Research</span></span>
+        </a>
+        <ul class="footer-links">
+          <li><a href="https://x.com/scrantonresearch" target="_blank" rel="noopener">X (Twitter)</a></li>
+          <li><a href="https://reddit.com/r/scrantonresearch" target="_blank" rel="noopener">Reddit</a></li>
+        </ul>
+      </div>
+      <p class="footer-copy">© 2024 Scranton Research. Builder-first, always.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    function submitEmail(e) {
+      e.preventDefault();
+      const input = e.target.querySelector('input');
+      const btn   = e.target.querySelector('button');
+      btn.textContent  = "You're in.";
+      btn.style.background = '#2ee010';
+      input.value      = '';
+      input.placeholder = 'Saved.';
+      setTimeout(() => {
+        btn.textContent  = 'Notify me';
+        btn.style.background = '';
+        input.placeholder = 'you@example.com';
+      }, 3500);
+    }
+  </script>
+
+</body>
+</html>
